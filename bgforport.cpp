@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 #define PO(a) (a) * (a)
-//#define n 61
+// #define n 71 // canva (7)
 
 void makePicture(int N, int d, char C[], int H[], int K[], int R[])
 {
@@ -14,13 +14,13 @@ void makePicture(int N, int d, char C[], int H[], int K[], int R[])
             int tic = 0;
             for (int k = 0; k < d; k++)
             {
-                if (tic)
-                    continue;
+                //if (tic)continue;
                 // (PO(i-K[k])+PO(j-H[k])<=PO(R[k]))  --------  (abs(j - H[k]) + abs(i - K[k]) <= R[k])
                 if (PO(i - K[k]) + PO(j - H[k]) <= PO(R[k]))
                 {
                     cout << C[k] << " ";
                     tic = 1;
+                    continue;//
                 }
             }
             if (!tic)
@@ -41,7 +41,7 @@ void inputData(int d, int H[], int K[], int R[], char C[])
 
 int main()
 {
-    int n = 61, d = 1;
+    int n, d = 1;
     cout << "canva size : ";
     cin >> n;
     cout << "\ndimond count : ";
