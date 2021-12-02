@@ -3,10 +3,10 @@ using namespace std;
 #define PO(a) (a) * (a)
 // #define n 71 // canva (7)
 
-void makePicture(int N, int d, char C[], int H[], int K[], int R[])
+void makePicture(int N, int d, char C[], int H[], int K[], int R[], char F[])
 {
 
-    for (int i = 0; i < N + 15; i++)
+    for (int i = 0; i < N + 20; i++)
     {
         for (int j = 0; j < N; j++)
         {
@@ -14,13 +14,17 @@ void makePicture(int N, int d, char C[], int H[], int K[], int R[])
             int tic = 0;
             for (int k = 0; k < d; k++)
             {
-                //if (tic)continue;
+                if (tic)continue;
                 // (PO(i-K[k])+PO(j-H[k])<=PO(R[k]))  --------  (abs(j - H[k]) + abs(i - K[k]) <= R[k])
-                if (PO(i - K[k]) + PO(j - H[k]) <= PO(R[k]))
+                if (abs(j - H[k]) + abs(i - K[k]) <= R[k] && F[k] == 'D')
                 {
                     cout << C[k] << " ";
                     tic = 1;
-                    continue;//
+                }
+                if (PO(i - K[k]) + PO(j - H[k]) <= PO(R[k]) && F[k] == 'C')
+                {
+                    cout << C[k] << " ";
+                    tic = 1;
                 }
             }
             if (!tic)
@@ -30,12 +34,12 @@ void makePicture(int N, int d, char C[], int H[], int K[], int R[])
     }
 }
 
-void inputData(int d, int H[], int K[], int R[], char C[])
+void inputData(int d, int H[], int K[], int R[], char C[], char F[])
 {
     for (int i = 0; i < d; i++)
     {
-        cout << "\ncoordinates (x) (y) (r) (style) (" << i + 1 << ") : ";
-        cin >> H[i] >> K[i] >> R[i] >> C[i];
+        cout << "\ncoordinates (x) (y) (r) (style) (" << i + 1 << ") (form): ";
+        cin >> H[i] >> K[i] >> R[i] >> C[i] >> F[i];
     }
 }
 
@@ -46,12 +50,12 @@ int main()
     cin >> n;
     cout << "\ndimond count : ";
     cin >> d;
-    char C[d];
+    char C[d], F[d];
     int M = n / 2, B = 1, N = B * n;
     int H[d] = {}, K[d] = {}, R[d] = {};
 
-    inputData(d, H, K, R, C);
-    makePicture(N, d, C, H, K, R);
+    inputData(d, H, K, R, C, F);
+    makePicture(N, d, C, H, K, R, F);
 
     return 0;
 }
@@ -97,6 +101,14 @@ int main()
     61 71 5 #
 
 
+    71
+    6
+    0 0 22 #
+    56 18 6 #
+    42 36 3 %
+    28 54 3 #
+    14 72 6 #
+    70 90 22 $
 
 
 
